@@ -66,9 +66,9 @@
 	}
 }%}
 
-{# Merge os_map into default_settings dictionary #}
-{% do default_settings.redis.update(os_map) %}
 
 {# Update settings defaults from pillar data #}
-{% set redis_settings = salt['pillar.get']('redis', default=default_settings.redis,
-  merge=True) %}
+{% set redis_settings = {'redis': salt['pillar.get']('redis', default=default_settings.redis)} %}
+
+{# Merge os_map into default_settings dictionary #}
+{% do default_settings.redis.update(os_map) %}
